@@ -1,221 +1,212 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to March 9, 2031</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarasota County, Florida Weather</title>
+  <style>
+    :root {
+      color-scheme: light;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #1a1a1a;
+    }
 
-        .container {
-            text-align: center;
-            max-width: 1200px;
-            width: 100%;
-        }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #00d4ff;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            font-weight: 700;
-        }
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      padding: 24px;
+      box-sizing: border-box;
+    }
 
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 3rem;
-            color: #a0a0a0;
-            font-weight: 300;
-        }
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      line-height: 1.2;
+    }
 
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
+    .subtitle {
+      margin: 0 0 20px 0;
+      color: #4b5563;
+      font-size: 14px;
+    }
 
-        .time-unit {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 15px;
-            padding: 2rem 1rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
+    .temp {
+      font-size: 40pt;
+      font-weight: 700;
+      margin: 8px 0;
+    }
 
-        .time-unit:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 212, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
+    .condition {
+      font-size: 18px;
+      margin-bottom: 18px;
+    }
 
-        .time-value {
-            font-size: 5rem;
-            font-weight: 700;
-            color: #00d4ff;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
 
-        .time-label {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-        }
+    .metric {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px;
+    }
 
-        .target-date {
-            font-size: 1.2rem;
-            color: #666;
-            margin-top: 2rem;
-            font-style: italic;
-        }
+    .metric-label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
+    .metric-value {
+      font-size: 18px;
+      font-weight: 600;
+    }
 
-            .subtitle {
-                font-size: 1.2rem;
-                margin-bottom: 2rem;
-            }
+    .status {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #374151;
+    }
 
-            .countdown {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-
-            .time-unit {
-                padding: 1.5rem 0.5rem;
-            }
-
-            .time-value {
-                font-size: 3.5rem;
-            }
-
-            .time-label {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .time-value {
-                font-size: 2.5rem;
-            }
-
-            .time-label {
-                font-size: 0.9rem;
-            }
-        }
-
-        .completed {
-            font-size: 3rem;
-            color: #00ff88;
-            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
-        }
-    </style>
+    .error {
+      color: #b91c1c;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Countdown Timer</h1>
-        <p class="subtitle">Time Remaining Until March 9, 2031</p>
-        
-        <div id="countdown" class="countdown">
-            <div class="time-unit">
-                <div class="time-value" id="days">0</div>
-                <div class="time-label">Days</div>
-            </div>
-            <div class="time-unit">
-                <div class="time-value" id="hours">0</div>
-                <div class="time-label">Hours</div>
-            </div>
-            <div class="time-unit">
-                <div class="time-value" id="minutes">0</div>
-                <div class="time-label">Minutes</div>
-            </div>
-            <div class="time-unit">
-                <div class="time-value" id="seconds">0</div>
-                <div class="time-label">Seconds</div>
-            </div>
-        </div>
+  <main class="card">
+    <h1>Sarasota County, Florida</h1>
+    <p class="subtitle">Current weather powered by Open-Meteo</p>
 
-        <p class="target-date">Target Date: March 9, 2031 at 12:00:00 AM</p>
+    <div id="weather">
+      <div class="temp">Loading...</div>
+      <div class="condition">Fetching current conditions</div>
     </div>
 
-    <script>
-        // Set the target date: March 9, 2031 at midnight
-        const targetDate = new Date('2031-03-09T00:00:00').getTime();
+    <div class="grid" id="metrics" hidden>
+      <div class="metric">
+        <div class="metric-label">Feels Like</div>
+        <div class="metric-value" id="apparentTemp">--</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Wind</div>
+        <div class="metric-value" id="wind">--</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Humidity</div>
+        <div class="metric-value" id="humidity">--</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Last Updated</div>
+        <div class="metric-value" id="updated">--</div>
+      </div>
+    </div>
 
-        function updateCountdown() {
-            // Get current time
-            const now = new Date().getTime();
-            
-            // Calculate time difference
-            const timeRemaining = targetDate - now;
+    <div class="status" id="status">Requesting live weather data...</div>
+  </main>
 
-            // Check if countdown is complete
-            if (timeRemaining <= 0) {
-                document.getElementById('countdown').innerHTML = 
-                    '<div class="completed">Countdown Complete! 🎉</div>';
-                return;
-            }
+  <script>
+    const weatherCodes = {
+      0: "Clear sky",
+      1: "Mainly clear",
+      2: "Partly cloudy",
+      3: "Overcast",
+      45: "Fog",
+      48: "Depositing rime fog",
+      51: "Light drizzle",
+      53: "Moderate drizzle",
+      55: "Dense drizzle",
+      56: "Light freezing drizzle",
+      57: "Dense freezing drizzle",
+      61: "Slight rain",
+      63: "Moderate rain",
+      65: "Heavy rain",
+      66: "Light freezing rain",
+      67: "Heavy freezing rain",
+      71: "Slight snow fall",
+      73: "Moderate snow fall",
+      75: "Heavy snow fall",
+      77: "Snow grains",
+      80: "Slight rain showers",
+      81: "Moderate rain showers",
+      82: "Violent rain showers",
+      85: "Slight snow showers",
+      86: "Heavy snow showers",
+      95: "Thunderstorm",
+      96: "Thunderstorm with slight hail",
+      99: "Thunderstorm with heavy hail"
+    };
 
-            // Calculate time units
-            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    const sarasotaCountyLat = 27.1686;
+    const sarasotaCountyLon = -82.5307;
 
-            // Update the display
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    async function loadWeather() {
+      const weatherEl = document.getElementById("weather");
+      const statusEl = document.getElementById("status");
+      const metricsEl = document.getElementById("metrics");
+
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${sarasotaCountyLat}&longitude=${sarasotaCountyLon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York`;
+
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
         }
 
-        // Update countdown immediately
-        updateCountdown();
+        const data = await response.json();
+        const current = data.current;
 
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-    </script>
+        weatherEl.innerHTML = `
+          <div class="temp">${Math.round(current.temperature_2m)}°F</div>
+          <div class="condition">${weatherCodes[current.weather_code] || "Unknown conditions"}</div>
+        `;
+
+        document.getElementById("apparentTemp").textContent = `${Math.round(current.apparent_temperature)}°F`;
+        document.getElementById("wind").textContent = `${Math.round(current.wind_speed_10m)} mph`;
+        document.getElementById("humidity").textContent = `${current.relative_humidity_2m}%`;
+
+        const updated = new Date(current.time);
+        document.getElementById("updated").textContent =
+          updated.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+
+        metricsEl.hidden = false;
+        statusEl.textContent = "Live weather loaded successfully.";
+      } catch (error) {
+        weatherEl.innerHTML = `
+          <div class="temp">Unavailable</div>
+          <div class="condition">Could not load current weather</div>
+        `;
+        statusEl.textContent = `Error loading weather data: ${error.message}`;
+        statusEl.classList.add("error");
+      }
+    }
+
+    loadWeather();
+  </script>
 </body>
 </html>
+ 
